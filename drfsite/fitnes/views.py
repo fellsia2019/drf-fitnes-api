@@ -137,16 +137,6 @@ def get_filtered_list(session_list, query):
 
 class SessionsForBoardAPIList(generics.ListAPIView):
     def get(self, request):
-        if not request.query_params:
-            return Response({
-                "filter": {
-                    "session": CatSession.objects.all().values(),
-                    "direction": CatDirection.objects.all().values(),
-                    "coach": CatCoach.objects.all().values(),
-                },
-                "page_list": get_matrix_list(Session.objects.all().values())
-            })
-
         filtered_result = get_filtered_list(Session.objects.all().values(), request.query_params)
 
         return Response({
